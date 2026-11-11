@@ -1,0 +1,3 @@
+# Solo necesario en el despliegue compartido (Postgres). En local no hace falta instalar nada.
+psycopg[binary]>=3.2,<4
+psycopg-pool>=3.2,<4

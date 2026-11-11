@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Space Apps Mentor · Valencia 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='9' fill='%2300f0ff'/%3E%3Cellipse cx='16' cy='16' rx='15' ry='5' fill='none' stroke='%23ff6b00' stroke-width='2' transform='rotate(-25 16 16)'/%3E%3C/svg%3E">
+</head>
+<body>
+  <div class="stars" aria-hidden="true"></div>
+
+  <header class="navbar-space" id="topbar">
+    <a class="brand" href="#/" title="Tablero">
+      <span class="brand-name">SPACE APPS</span>
+      <span class="brand-badge">VALENCIA 2026</span>
+      <span class="brand-role">MENTOR</span>
+    </a>
+    <nav class="nav-main" aria-label="Principal">
+      <a class="nav-link-space" href="#/" data-nav="tablero">Tablero</a>
+      <a class="nav-link-space" href="#/equipos" data-nav="equipos">Equipos</a>
+      <a class="nav-link-space" href="#/retos" data-nav="retos">Retos</a>
+      <a class="nav-link-space" href="#/metodologias" data-nav="metodologias">Metodologías</a>
+    </nav>
+    <div class="search" id="search">
+      <svg class="search-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="search-input" type="search" placeholder="Buscar equipo, persona, mis notas…" autocomplete="off" aria-label="Búsqueda global">
+      <kbd class="search-kbd">/</kbd>
+      <div class="search-results" id="search-results" role="listbox" hidden></div>
+    </div>
+    <div class="telemetry" id="telemetry" title="Hora local y cuenta atrás al pitch final (dom 15 nov, 16:00)">
+      <span class="tele-dot"></span>
+      <span id="tele-clock">--:--</span>
+      <span class="tele-sep">•</span>
+      <span id="tele-count">PITCH —</span>
+    </div>
+    <div class="menu-wrap">
+      <button class="icon-btn" id="data-btn" aria-haspopup="true" aria-expanded="false" title="Datos: exportar / importar">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 17v3h16v-3"/></svg>
+      </button>
+      <div class="menu glass" id="data-menu" hidden>
+        <div class="menu-title">Mis notas privadas</div>
+        <button class="menu-item" id="export-notes-btn" type="button">Descargar copia de mis notas</button>
+        <button class="menu-item" id="import-notes-btn" type="button">Recuperar mis notas…</button>
+        <input type="file" id="import-notes-file" accept="application/json,.json" hidden>
+        <div class="menu-hint">Viven solo en este navegador. Haz copia si vas a cambiar de equipo o borrar datos.</div>
+        <div class="menu-title">Equipos (compartidos)</div>
+        <a class="menu-item" id="export-link" href="/api/export" download>Exportar equipos JSON</a>
+        <button class="menu-item" id="import-btn" type="button">Importar equipos JSON…</button>
+        <input type="file" id="import-file" accept="application/json,.json" hidden>
+        <div class="menu-hint">Importar reemplaza los equipos de todos los mentores.</div>
+      </div>
+    </div>
+    <div class="me-box" id="me-box" hidden></div>
+    <button class="btn-space-primary btn-sm" id="new-team-btn" title="Nuevo equipo (n)">+ Equipo</button>
+  </header>
+
+  <main id="app" tabindex="-1"></main>
+
+  <footer class="foot">
+    <span><kbd>/</kbd> buscar</span>
+    <span><kbd>n</kbd> nuevo equipo</span>
+    <span><kbd>Esc</kbd> cerrar</span>
+    <span><kbd>Ctrl</kbd>/<kbd>⌘</kbd>+<kbd>Enter</kbd> guardar nota</span>
+    <span class="foot-right">Equipos compartidos · tus notas solo en este navegador · NASA Space Apps Challenge 2026</span>
+  </footer>
+
+  <div id="modal-root"></div>
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

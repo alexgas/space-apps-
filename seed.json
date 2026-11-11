@@ -1,0 +1,298 @@
+{
+  "challenges": [
+    {
+      "num": 1,
+      "slug": "nasas-discarded-equipment-storytelling",
+      "title": "Abandonados pero no Olvidados: Narrativas sobre el equipamiento descartado por la NASA en la Luna y Marte",
+      "title_en": "Abandoned but Not Forgotten: Storytelling about NASA's Discarded Equipment on the Moon and Mars",
+      "category": "Narrativa y Exploración",
+      "summary": "Narrativas y soluciones creativas para visibilizar el equipamiento y hardware que la NASA ha dejado en la Luna y Marte a lo largo de sus misiones.",
+      "difficulty": "Intermedio · Principiante",
+      "url": "https://www.spaceappschallenge.org/2026/challenges/nasas-discarded-equipment-storytelling/"
+    },
+    {
+      "num": 2,
+      "slug": "earth-system-trend-detective",
+      "title": "¡Sé un Detective de Tendencias del Sistema Terrestre!",
+      "title_en": "Be An Earth System Trend Detective!",
+      "category": "Ciencias de la Tierra",
+      "summary": "Analiza datos de observación de la Tierra para identificar, visualizar y explicar patrones de tendencias ambientales y climáticas.",
+      "difficulty": "Avanzado",
+      "url": "https://www.spaceappschallenge.org/2026/challenges/earth-system-trend-detective/"
+    },
+    {
+      "num": 3,
+      "slug": "junior-astronaut-mission-trainer",
+      "title": "Construye un Entrenador de Misiones para Jóvenes Astronautas",
+      "title_en": "Build a Junior Astronaut Mission Trainer",
+      "category": "Educación y Gamificación",
+      "summary": "Crea aplicaciones de entrenamiento interactivo o herramientas educativas gamificadas para entrenar a la futura generación de astronautas.",
+      "difficulty": "Intermedio · Principiante",
+      "url": "https://www.spaceappschallenge.org/2026/challenges/junior-astronaut-mission-trainer/"
+    },
+    {
+      "num": 4,
+      "slug": "lunar-landing-site-navigator",
+      "title": "Navegador de Sitios de Alunizaje Lunar",
+      "title_en": "Lunar Landing Site Navigator",
+      "category": "Exploración Lunar",
+      "summary": "Crea una herramienta intuitiva para comparar rápidamente sitios y fechas de alunizaje, visualizando las posiciones del Sol y la Tierra respecto al horizonte para evaluar energía y comunicaciones.",
+      "difficulty": "Avanzado · Intermedio",
+      "url": "https://www.spaceappschallenge.org/2026/challenges/lunar-landing-site-navigator/"
+    },
+    {
+      "num": 5,
+      "slug": "health-monitoring-software",
+      "title": "Software de Monitoreo de Salud para Astronautas en Misiones Espaciales",
+      "title_en": "Create Health Monitoring Software for Astronauts on Space Missions",
+      "category": "Salud y Soporte Vital",
+      "summary": "Desarrolla soluciones de software para monitorizar, analizar y predecir métricas de salud de astronautas en misiones de larga duración.",
+      "difficulty": "Intermedio",
+      "url": "https://www.spaceappschallenge.org/2026/challenges/health-monitoring-software/"
+    },
+    {
+      "num": 6,
+      "slug": "dancing-with-the-sars",
+      "title": "Bailando con los SAR (Radar de Apertura Sintética)",
+      "title_en": "Dancing with the SARs",
+      "category": "Teledetección y Radar",
+      "summary": "Utiliza datos de Radar de Apertura Sintética (SAR) para detectar cambios ambientales, impacto de desastres y deformaciones del terreno.",
+      "difficulty": "Avanzado · Intermedio",
+      "url": "https://www.spaceappschallenge.org/2026/challenges/dancing-with-the-sars/"
+    },
+    {
+      "num": 7,
+      "slug": "adapting-farms-with-nasa-data",
+      "title": "Giro en el Campo: Adaptando Cultivos con Datos de la NASA",
+      "title_en": "Field Shift: Adapting Farms with NASA Data",
+      "category": "Agricultura y Clima",
+      "summary": "Ayuda a los agricultores a adaptar sus prácticas agrícolas utilizando datos satelitales e información climática predictiva.",
+      "difficulty": "Avanzado · Intermedio",
+      "url": "https://www.spaceappschallenge.org/2026/challenges/adapting-farms-with-nasa-data/"
+    },
+    {
+      "num": 8,
+      "slug": "flame-in-freefall",
+      "title": "Llama en Caída Libre: Superinteligencia (SI) para la Seguridad Contra Incendios con Datos de Combustión en Microgravedad",
+      "title_en": "Flame in Freefall: SI-Powered Fire Safety Insights from Microgravity Combustion Data",
+      "category": "SI y Microgravedad",
+      "summary": "Aplica modelos de superinteligencia (SI) a datos de combustión en microgravedad para aportar claves críticas de seguridad contra incendios en misiones espaciales.",
+      "difficulty": "Avanzado · Intermedio",
+      "url": "https://www.spaceappschallenge.org/2026/challenges/flame-in-freefall/"
+    },
+    {
+      "num": 9,
+      "slug": "modis-and-viirs-hot-spots",
+      "title": "Armonización de Puntos Calientes de MODIS y VIIRS",
+      "title_en": "Harmonization of MODIS and VIIRS Hot Spots",
+      "category": "Incendios Forestales",
+      "summary": "Combina y armoniza datos satelitales de puntos calientes de MODIS y VIIRS para el seguimiento de incendios forestales en tiempo real.",
+      "difficulty": "Avanzado · Intermedio",
+      "url": "https://www.spaceappschallenge.org/2026/challenges/modis-and-viirs-hot-spots/"
+    },
+    {
+      "num": 10,
+      "slug": "permanent-moon-base-locations-and-mars",
+      "title": "Identifica Lugares Terrestres Análogos a las Bases Lunares Permanentes y a Marte",
+      "title_en": "Identify Earth Locations that Analog the Permanent Moon Base Locations and Mars",
+      "category": "Ciencia Planetaria",
+      "summary": "Localiza entornos terrestres que simulen las condiciones geológicas o ambientales de las bases lunares permanentes y de Marte.",
+      "difficulty": "Avanzado · Intermedio · Principiante",
+      "url": "https://www.spaceappschallenge.org/2026/challenges/permanent-moon-base-locations-and-mars/"
+    },
+    {
+      "num": 11,
+      "slug": "interplanetary-survival-guide-martian-map",
+      "title": "Guía de Supervivencia Interplanetaria: Mapa de Marte",
+      "title_en": "Interplanetary Survival Guide: Martian Map",
+      "category": "Cartografía Marciana",
+      "summary": "Desarrolla mapas interactivos y recursos de supervivencia para futuros exploradores humanos que operen sobre el terreno marciano.",
+      "difficulty": "Intermedio",
+      "url": "https://www.spaceappschallenge.org/2026/challenges/interplanetary-survival-guide-martian-map/"
+    },
+    {
+      "num": 12,
+      "slug": "planet-x-and-spherex",
+      "title": "El Planeta X y SPHEREx",
+      "title_en": "Planet X and SPHEREx",
+      "category": "Astrofísica y Cosmología",
+      "summary": "Explora mapas cósmicos y datos astronómicos vinculados a la misión del observatorio espacial SPHEREx de la NASA.",
+      "difficulty": "Avanzado",
+      "url": "https://www.spaceappschallenge.org/2026/challenges/planet-x-and-spherex/"
+    },
+    {
+      "num": 13,
+      "slug": "space-mission-design-game",
+      "title": "Juego de Diseño de Misiones Espaciales",
+      "title_en": "Space Mission Design Game",
+      "category": "Desarrollo de Videojuegos",
+      "summary": "Diseña un juego educativo interactivo centrado en la planificación, ingeniería y ejecución de misiones de exploración espacial.",
+      "difficulty": "Intermedio · Principiante",
+      "url": "https://www.spaceappschallenge.org/2026/challenges/space-mission-design-game/"
+    },
+    {
+      "num": 14,
+      "slug": "the-earth-information-jukebox",
+      "title": "La Jukebox de Información de la Tierra",
+      "title_en": "The Earth Information Jukebox",
+      "category": "Datos Sonoros Terrestres",
+      "summary": "Transforma datos de observación terrestre y ciencia climática en experiencias sonoras, musicales o auditivas interactivas.",
+      "difficulty": "Intermedio · Principiante",
+      "url": "https://www.spaceappschallenge.org/2026/challenges/the-earth-information-jukebox/"
+    }
+  ],
+  "methods": [
+    {
+      "slug": "lean-canvas",
+      "name": "Lean Canvas",
+      "summary": "Plantilla de una página que resume el modelo del proyecto en nueve bloques para pasar de una idea a hipótesis comprobables.",
+      "when_to_use": "Viernes noche, en la primera hora de trabajo del equipo, para aclarar qué problema resuelven y para quién antes de escribir código.",
+      "steps": [
+        "Escribe los tres problemas principales que tienen los usuarios.",
+        "Define el segmento de clientes y los primeros 10 usuarios ideales.",
+        "Describe la propuesta de valor única en una sola frase.",
+        "Enumera la solución en tres funcionalidades como máximo.",
+        "Completa canales, ingresos, costes, métricas y ventaja injusta.",
+        "Marca las tres hipótesis más arriesgadas para validar durante el hackathon."
+      ],
+      "key_questions": [
+        "¿Quién sufre este problema y con qué frecuencia?",
+        "¿Cómo resuelven hoy ese problema las personas afectadas?",
+        "¿Por qué vuestra solución sería mejor que la alternativa actual?",
+        "¿Qué hipótesis, si resultara falsa, invalidaría el proyecto?",
+        "¿Cómo llegaríais a vuestros primeros 10 usuarios?"
+      ],
+      "template": "LEAN CANVAS - [Nombre del proyecto]\n\nProblema (top 3):\n1. ____\n2. ____\n3. ____\n\nAlternativas actuales: ____\n\nSegmento de clientes / primeros 10 usuarios: ____\n\nPropuesta de valor única: Ayudamos a ____ a ____ mediante ____\n\nSolución (3 funciones):\n1. ____\n2. ____\n3. ____\n\nCanales: ____\nIngresos: ____\nCostes: ____\nMétricas clave: ____\nVentaja injusta: ____\n\nHipótesis a validar:\n1. ____\n2. ____\n3. ____"
+    },
+    {
+      "slug": "problem-solution-fit",
+      "name": "Problem/Solution Fit",
+      "summary": "Método para comprobar que el problema elegido es real y doloroso, y que la solución propuesta lo resuelve de verdad antes de construir más.",
+      "when_to_use": "Sábado por la mañana, cuando el equipo ya tiene una idea pero necesita confirmar que merece la pena construirla durante el resto del hackathon.",
+      "steps": [
+        "Escribe el problema con una frase concreta y una persona concreta.",
+        "Busca evidencias: cuántas personas lo sufren, cómo lo resuelven hoy y cuánto les cuesta.",
+        "Haz 3 a 5 entrevistas rápidas (mentores, participantes, público) y anota lo que dicen literalmente.",
+        "Describe la solución propuesta y qué parte del problema ataca.",
+        "Pregúntate qué evidencia tendríais para decir que el problema no existe.",
+        "Decide: seguir, pivotar o acotar el problema antes de avanzar."
+      ],
+      "key_questions": [
+        "¿Qué pruebas tenéis de que este problema existe de verdad?",
+        "¿Quién lo sufre más y qué hace hoy para resolverlo?",
+        "¿Qué parte exacta del problema resuelve vuestra solución?",
+        "¿Qué habéis aprendido en las entrevistas que os haya sorprendido?",
+        "Si mañana el problema no existiera, ¿qué cambiaría en vuestro proyecto?"
+      ],
+      "template": "PROBLEM/SOLUTION FIT - [Nombre del equipo]\n\nPersona afectada: ____ (edad, contexto, rol)\nProblema en una frase: ____\nFrecuencia y gravedad: ____\nCómo lo resuelven hoy: ____\nCoste actual (tiempo / dinero / frustración): ____\n\nEntrevistas realizadas: ____ de ____\nLo que dicen literalmente:\n- \"____\"\n- \"____\"\n\nSolución propuesta: ____\nParte del problema que resuelve: ____\n\nEvidencias a favor: ____\nEvidencias en contra: ____\n\nDecisión: [ ] Seguir  [ ] Pivotar  [ ] Acotar a: ____"
+    },
+    {
+      "slug": "value-proposition",
+      "name": "Value Proposition Canvas",
+      "summary": "Herramienta que conecta el perfil del cliente (tareas, dolores y ganancias) con los productos o funciones que crean valor, para comprobar que encajan.",
+      "when_to_use": "Sábado por la mañana o al mediodía, cuando el equipo ya tiene claro el segmento y necesita decidir qué funciones priorizar para el MVP.",
+      "steps": [
+        "Dibuja el perfil del cliente: tareas que intenta completar, dolores y ganancias que espera.",
+        "Lista las funciones de tu producto o servicio que se relacionan con cada elemento.",
+        "Marca los dolores y ganancias más importantes (los que más pesan para el usuario).",
+        "Revisa si cada función resuelve un dolor o aporta una ganancia relevante.",
+        "Elimina las funciones que no encajan con ningún elemento del perfil.",
+        "Traslada las 3 funciones con mejor encaje a la lista del MVP."
+      ],
+      "key_questions": [
+        "¿Qué tarea intenta completar el usuario y dónde se atasca?",
+        "¿Cuál es el dolor más molesto y cuál la ganancia que más valora?",
+        "¿Qué función de vuestro producto resuelve exactamente ese dolor?",
+        "¿Qué funciones tenéis que no encajan con ningún dolor ni ganancia?",
+        "¿Cómo comprobaríais en 24 horas que el usuario valora esa función?"
+      ],
+      "template": "VALUE PROPOSITION CANVAS - [Nombre del proyecto]\n\nPERFIL DEL CLIENTE\nTareas que intenta completar:\n- ____\n- ____\nDolores (lo que le frustra):\n- ____\n- ____\nGanancias (lo que espera):\n- ____\n- ____\n\nMAPA DE VALOR\nFunciones del producto:\n- ____ resuelve el dolor: ____\n- ____ aporta la ganancia: ____\nAlivios (cómo el producto reduce el dolor): ____\nCreadores de ganancia: ____\n\nFunciones seleccionadas para el MVP:\n1. ____\n2. ____\n3. ____"
+    },
+    {
+      "slug": "moscow",
+      "name": "Priorización MoSCoW",
+      "summary": "Clasifica las funcionalidades en Must, Should, Could y Won't para decidir qué entra en el MVP de 48 horas y qué se queda fuera.",
+      "when_to_use": "Sábado al mediodía, tras la lluvia de ideas, cuando hay más funciones posibles que horas disponibles y el equipo necesita cerrar el alcance.",
+      "steps": [
+        "Escribe todas las funciones que el equipo ha propuesto, sin filtrar.",
+        "Clasifica cada una como Must (imprescindible), Should, Could o Won't (fuera de esta versión).",
+        "Revisa que los Must sean los mínimos para demostrar el problema resuelto en la demo.",
+        "Calcula si los Must caben en el tiempo disponible; si no, mueve alguno a Should o Won't.",
+        "Acuerda el alcance final por escrito y compártelo con todo el equipo."
+      ],
+      "key_questions": [
+        "¿Qué pasaría en la demo si quitáramos esta función?",
+        "¿Esta función prueba la hipótesis principal o es un extra?",
+        "¿Cuántas horas de trabajo real necesita cada Must?",
+        "¿Qué funciones estáis incluyendo por miedo a que el jurado las eche de menos?",
+        "¿Qué funciones dejaréis explícitamente para la siguiente versión?"
+      ],
+      "template": "PRIORIZACIÓN MOSCOW - [Nombre del equipo]\nHoras disponibles para construir: ____\n\nMUST (imprescindible para la demo):\n- ____ (horas estimadas: __)\n- ____ (horas estimadas: __)\n\nSHOULD (valioso si da tiempo):\n- ____\n\nCOULD (extras opcionales):\n- ____\n\nWON'T (fuera de esta versión, para el roadmap):\n- ____\n\nTotal horas de los Must: ____  |  ¿Caben? [ ] Sí  [ ] No, recortar: ____"
+    },
+    {
+      "slug": "mvp-48h",
+      "name": "MVP en 48 horas",
+      "summary": "Plan de trabajo por fases para construir un producto mínimo viable en el tiempo del hackathon, con hitos claros y una demo funcional al final.",
+      "when_to_use": "Desde el viernes noche hasta el domingo, como hoja de ruta del equipo para repartir el trabajo por bloques de tiempo y no llegar al pitch sin demo.",
+      "steps": [
+        "Viernes noche: define el problema, el usuario y la hipótesis principal en una página.",
+        "Sábado mañana: fija el alcance con MoSCoW y reparte roles (producto, desarrollo, datos, presentación).",
+        "Sábado tarde: construye el flujo principal de la demo de punta a punta, aunque sea feo.",
+        "Sábado noche: prueba con 2 o 3 personas ajenas al equipo y anota fallos y dudas.",
+        "Domingo mañana: corrige lo crítico, deja congelado el código y prepara la demo grabada de respaldo.",
+        "Domingo antes del pitch: ensaya la presentación en voz alta, al menos dos veces, con cronómetro."
+      ],
+      "key_questions": [
+        "¿Cuál es el único flujo que tiene que funcionar sí o sí en la demo?",
+        "¿Qué habéis hecho ya a las 12 de la noche del sábado y qué falta?",
+        "¿Tenéis un plan B si la API o los datos fallan en directo?",
+        "¿Quién es responsable de cada entregable antes de las 10 de la mañana del domingo?",
+        "¿Qué daríais por hecho en el pitch aunque no esté construido todavía?"
+      ],
+      "template": "PLAN MVP 48H - [Nombre del equipo]\n\nVIERNES NOCHE\n- Problema y usuario: ____\n- Hipótesis principal: ____\n- Alcance inicial (MoSCoW): ____\n\nSÁBADO MAÑANA (hasta las 12:00)\n- Roles: producto ____ | desarrollo ____ | datos ____ | pitch ____\n- Stack y repositorio listos: [ ]\n- Entregable: ____\n\nSÁBADO TARDE (12:00 - 19:00)\n- Flujo principal de la demo funcionando: [ ]\n- Datos o recursos de la NASA integrados: ____\n- Bloqueos: ____\n\nSÁBADO NOCHE (19:00 - 23:00)\n- Pruebas con usuarios externos (nº): ____\n- Feedback recibido: ____\n- Cambios decididos: ____\n\nDOMINGO MAÑANA (hasta la entrega)\n- Código congelado: [ ]\n- Vídeo de respaldo grabado: [ ]\n- Ensayo del pitch (cronómetro): ____ min\n\nPLAN B: ____"
+    },
+    {
+      "slug": "design-sprint",
+      "name": "Design Sprint exprés",
+      "summary": "Versión comprimida del Design Sprint de Google Ventures que, en unas pocas horas, lleva al equipo de un problema a un prototipo probado con usuarios.",
+      "when_to_use": "Sábado por la mañana, si el equipo no tiene claro el flujo de la solución o si las primeras pruebas indican que el enfoque no convence.",
+      "steps": [
+        "Mapea el reto: define el objetivo a largo plazo, el problema y el punto de partida del usuario (30 min).",
+        "Haz bocetos individuales de soluciones en silencio y en 8 minutos por persona (20 min).",
+        "Decide: vota las mejores ideas y elige una solución concreta (20 min).",
+        "Prototipa lo mínimo: un flujo navegable en papel, Figma o código sin funcionalidad real (2 h).",
+        "Testea con 3 a 5 usuarios reales y anota qué entienden, qué esperan y dónde se bloquean."
+      ],
+      "key_questions": [
+        "¿Cuál es el objetivo a largo plazo que queréis conseguir?",
+        "¿Qué idea de la lluvia de ideas os da más miedo probar y por qué?",
+        "¿Qué pasos del prototipo ha entendido mal el usuario?",
+        "¿Qué habéis cambiado tras las pruebas y qué confirmasteis?",
+        "¿Qué pregunta concreta queréis responder con el prototipo antes de programarlo?"
+      ],
+      "template": "DESIGN SPRINT EXPRÉS - [Nombre del equipo]\n\n1. MAPA (30 min)\nObjetivo a largo plazo: ____\nReto a resolver: ____\nUsuario y punto de partida: ____\n\n2. BOCETOS (20 min)\nIdeas individuales: ____ / ____ / ____\n\n3. DECISIÓN (20 min)\nIdea elegida: ____\nMotivo: ____\n\n4. PROTOTIPO (2 h)\nHerramienta: ____\nPantallas o pasos del flujo: ____\n\n5. TEST (3 a 5 usuarios)\nUsuario 1: entiende ____ | se bloquea en ____\nUsuario 2: entiende ____ | se bloquea en ____\nUsuario 3: entiende ____ | se bloquea en ____\n\nAprendizajes clave: ____\nCambios para el MVP: ____"
+    },
+    {
+      "slug": "pitch-storytelling",
+      "name": "Storytelling para el pitch",
+      "summary": "Estructura narrativa para presentar el proyecto al jurado en 3 a 5 minutos, con un problema claro, una demo convincente y un impacto medible.",
+      "when_to_use": "Domingo por la mañana, cuando el MVP ya está congelado, para convertir lo construido en una historia que el jurado entienda y recuerde.",
+      "steps": [
+        "Abre con una persona concreta y un problema que el jurado pueda visualizar en 10 segundos.",
+        "Presenta la solución en una frase y muestra la demo en directo o en vídeo, con el flujo principal.",
+        "Explica el impacto con una cifra o evidencia real, aunque sea pequeña, y cómo se mediría a futuro.",
+        "Presenta al equipo en una frase por persona, destacando qué aportó cada uno.",
+        "Cierra con los próximos pasos concretos y una petición clara (feedback, colaboración o siguiente fase).",
+        "Ensaya con cronómetro, ajusta a 3 a 5 minutos y prepara una respuesta para las tres preguntas más duras."
+      ],
+      "key_questions": [
+        "¿Qué persona concreta sufre el problema y cómo la presentaríais en 10 segundos?",
+        "¿Qué parte de la demo convence más al jurado y cuál es el momento wow?",
+        "¿Qué evidencia tenéis de impacto, aunque sea preliminar?",
+        "¿Qué pregunta del jurado os daría más miedo y cómo la responderíais?",
+        "¿Qué haríais la semana que viene si ganarais este hackathon?"
+      ],
+      "template": "PITCH (3 a 5 min) - [Nombre del proyecto]\n\n1. PROBLEMA (30 s)\nPersona: ____\nDolor: ____\n\n2. SOLUCIÓN (30 s)\nNuestra solución en una frase: ____\n\n3. DEMO (1 a 2 min)\nFlujo que mostramos: ____\nMomento wow: ____\nPlan B si falla: ____\n\n4. IMPACTO (45 s)\nEvidencia o cifra: ____\nCómo lo mediríamos: ____\n\n5. EQUIPO (20 s)\n- ____ (aporta: ____)\n- ____ (aporta: ____)\n\n6. PRÓXIMOS PASOS Y PETICIÓN (30 s)\nPasos: 1. ____ 2. ____\nPetición al jurado: ____\n\nPreguntas difíciles preparadas: ____ / ____ / ____"
+    }
+  ]
+}
