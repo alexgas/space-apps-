@@ -281,6 +281,15 @@ class TestSearchAndExport(StoreTestCase):
         new = other.create_team({"name": "Nuevo", "members": [{"name": "Z"}]})
         self.assertGreater(new["id"], team["id"])
 
+    def test_empty_import_resets_but_never_reuses_ids(self):
+        old = self.store.create_team({"name": "Prueba", "members": [{"name": "A"}]})
+        self.assertEqual(self.store.import_all({"version": 2, "teams": [], "members": []}), 0)
+        self.assertEqual(self.store.state()["teams"], [])
+        new = self.store.create_team({"name": "Real", "members": [{"name": "B"}]})
+        if self.pg:  # en SQLite local es aceptable (un solo usuario)
+            self.assertGreater(new["id"], old["id"])
+            self.assertGreater(new["members"][0]["id"], old["members"][0]["id"])
+
     def test_import_accepts_v1_with_notes(self):
         dump = {"version": 1, "teams": [{"id": 5, "name": "Viejo"}],
                 "members": [{"id": 1, "team_id": 5, "name": "Ana", "notes": "x"}],

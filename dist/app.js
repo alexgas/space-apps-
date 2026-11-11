@@ -924,6 +924,13 @@
     document.addEventListener('click', (e) => { if (!menu.hidden && !menu.contains(e.target)) setOpen(false); });
     $('#export-link').addEventListener('click', () => { setOpen(false); toast('Exportando equipos…'); });
     $('#import-btn').addEventListener('click', () => { setOpen(false); file.value = ''; file.click(); });
+    $('#wipe-btn').addEventListener('click', async () => {
+      setOpen(false);
+      const n = (S && S.teams || []).length;
+      if (prompt(`Vas a BORRAR los ${n} equipos y sus miembros para TODOS los mentores.\nExporta antes una copia si la necesitas.\n\nEscribe BORRAR para confirmar:`) !== 'BORRAR') { toast('Cancelado'); return; }
+      try { await api('POST', '/api/import', { version: 2, teams: [], members: [] }); PN.teams = {}; PN.members = {}; savePN(); toast('Equipos vaciados'); currentTeam = null; go('#/'); }
+      catch (e) { toast(e.message, true); }
+    });
     const pnFile = $('#import-notes-file');
     $('#export-notes-btn').addEventListener('click', () => { setOpen(false); exportPN(); toast('Copia de tus notas descargada'); });
     $('#import-notes-btn').addEventListener('click', () => { setOpen(false); pnFile.value = ''; pnFile.click(); });

@@ -654,9 +654,12 @@ class Store:
                          "challenge_id NOT IN (SELECT id FROM challenges)")
             if self.is_pg:
                 for table in ("teams", "members"):
+                    # Nunca retrocede: un id ya usado no se reasigna (las notas privadas
+                    # de los navegadores van por id de equipo/miembro).
                     conn.execute(
-                        "SELECT setval(pg_get_serial_sequence('%s','id'), "
-                        "COALESCE((SELECT MAX(id) FROM %s), 0) + 1, false) AS v" % (table, table))
+                        "SELECT setval(pg_get_serial_sequence('{t}','id'), GREATEST("
+                        "COALESCE((SELECT MAX(id) FROM {t}), 0) + 1, "
+                        "nextval(pg_get_serial_sequence('{t}','id'))), false) AS v".format(t=table))
         return len(teams)
 
     @staticmethod
