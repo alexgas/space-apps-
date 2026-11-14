@@ -173,6 +173,29 @@ class TestApi(ServerTestCase):
         self.assertIn("error", body)
 
 
+class TestNasaSyncApi(ServerTestCase):
+    def test_preview_then_apply_with_stale_check(self):
+        data = {"teams": [{"slug": "cosmos", "name": "Cosmos", "challenge_en": "Challenge one",
+                           "members": [{"name": "Ana", "owner": True}]}]}
+        self.new_team(name="Manual que sobra")
+        status, _, plan = self.call("POST", "/api/nasa-sync/preview", data)
+        self.assertEqual(status, 200)
+        self.assertEqual([c["name"] for c in plan["created"]], ["Cosmos"])
+        self.assertEqual([d["name"] for d in plan["deleted"]], ["Manual que sobra"])
+        status, _, body = self.call("POST", "/api/nasa-sync/apply", data)
+        self.assertEqual(status, 400)  # sin revisar antes
+        status, _, body = self.call("POST", "/api/nasa-sync/apply",
+                                    dict(data, plan_hash="otro-plan"))
+        self.assertEqual(status, 409)
+        status, _, res = self.call("POST", "/api/nasa-sync/apply",
+                                   dict(data, plan_hash=plan["plan_hash"]))
+        self.assertEqual(status, 200)
+        self.assertEqual((res["created"], res["deleted"]), (1, 1))
+        teams = self.call("GET", "/api/state")[2]["teams"]
+        self.assertEqual([(t["name"], t["nasa_slug"], t["challenge_id"]) for t in teams],
+                         [("Cosmos", "cosmos", 1)])
+
+
 class TestSecurityAndStatic(ServerTestCase):
     def raw(self, method, path, headers=None, body=None):
         conn = http.client.HTTPConnection("127.0.0.1", self.port, timeout=10)

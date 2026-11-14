@@ -24,6 +24,7 @@ import webbrowser
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, unquote, urlparse
 
+import nasa_sync
 from store import NotFound, Store, StoreError, ValidationError
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -98,6 +99,10 @@ ROUTES = [
      lambda s, m, q, b, a: _export_response(s)),
     ("POST", r"/api/import",
      lambda s, m, q, b, a: _import_response(s, b)),
+    ("POST", r"/api/nasa-sync/preview",
+     lambda s, m, q, b, a: ApiResult(200, nasa_sync.preview(s, b))),
+    ("POST", r"/api/nasa-sync/apply",
+     lambda s, m, q, b, a: ApiResult(200, nasa_sync.apply(s, b, actor=a))),
 ]
 COMPILED_ROUTES = [(method, re.compile(pattern + r"$"), fn) for method, pattern, fn in ROUTES]
 
@@ -259,7 +264,7 @@ class Handler(BaseHTTPRequestHandler):
         try:
             result = dispatch(self.server.store, method, path, query, body, actor or "")
         except ValidationError as exc:
-            return self._send_json(400, {"error": str(exc)})
+            return self._send_json(getattr(exc, "status", 400), {"error": str(exc)})
         except NotFound as exc:
             return self._send_json(404, {"error": str(exc)})
         except StoreError as exc:

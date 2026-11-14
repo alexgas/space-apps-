@@ -48,7 +48,7 @@ NOTE_KINDS = [  # solo etiquetas para el front; las notas viven en el navegador
 TEAM_TEXT_FIELDS = ("name", "table_label", "idea", "problem", "solution", "links")
 TEAM_COLUMNS = ("id", "name", "table_label", "idea", "problem", "solution", "phase",
                 "challenge_id", "links", "attention", "created_at", "updated_at",
-                "last_visit_at", "updated_by", "last_visit_by")
+                "last_visit_at", "updated_by", "last_visit_by", "nasa_slug")
 MEMBER_COLUMNS = ("id", "team_id", "name", "role", "skills", "created_at")
 
 SCHEMA = """
@@ -78,7 +78,8 @@ CREATE TABLE IF NOT EXISTS team_methods(
 """
 # Columnas añadidas después de la v1 (para BDs ya creadas).
 MIGRATIONS = [("teams", "updated_by", "TEXT DEFAULT ''"),
-              ("teams", "last_visit_by", "TEXT DEFAULT ''")]
+              ("teams", "last_visit_by", "TEXT DEFAULT ''"),
+              ("teams", "nasa_slug", "TEXT DEFAULT ''")]  # ficha en spaceappschallenge.org
 PG_SCHEMA = SCHEMA.replace("id INTEGER PRIMARY KEY", "id SERIAL PRIMARY KEY") + """
 CREATE OR REPLACE FUNCTION fold(t text) RETURNS text LANGUAGE sql IMMUTABLE
     AS $$ SELECT lower(coalesce(t, '')) $$;
@@ -703,6 +704,7 @@ class Store:
         team["last_visit_at"] = row.get("last_visit_at")
         team["updated_by"] = row.get("updated_by") or ""
         team["last_visit_by"] = row.get("last_visit_by") or ""
+        team["nasa_slug"] = row.get("nasa_slug") or ""
         return team
 
     @staticmethod

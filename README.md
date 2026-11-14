@@ -52,6 +52,19 @@ Cada `git push` a la rama principal redespliega automáticamente.
 - Menú de datos (icono de descarga) > **Descargar copia de mis notas** / **Recuperar mis notas**.
 - Guardar una nota marca la visita al equipo para todos ("Última visita · por Marta"), sin revelar el contenido.
 
+## Refrescar equipos desde NASA
+
+La web oficial (https://www.spaceappschallenge.org/2026/local-events/valencia/?tab=teams) es la fuente de la verdad. En el CRM: **Equipos > ⟳ Refrescar desde NASA** (o menú de datos).
+
+1. Solo la primera vez: arrastra el botón «📡 Equipos NASA → CRM» del modal a la barra de marcadores.
+2. Abre la página de equipos de Valencia y pulsa el marcador: carga la lista entera (scroll infinito), lee la pestaña Members de cada equipo (~2 s por equipo) y comprueba que tiene tantos como dice la página («Currently returning N teams»). Si falta alguno, no genera nada.
+3. «Copiar JSON», vuelve al CRM, pégalo y pulsa **Revisar cambios**: verás equipos nuevos, cambios (nombre, reto, miembros + / −) y los que **se borrarán**.
+4. Marca la casilla de confirmación y pulsa **Sobrescribir**.
+
+Qué manda NASA: qué equipos existen, nombre, reto y lista de miembros. Qué se conserva: fase, ★, mesa, idea/problema/solución/enlaces, visitas, métodos y el rol/skills de quien siga en el equipo. Los equipos que no estén en NASA (también los creados a mano) se borran. Si otro mentor cambia algo entre la revisión y la confirmación, pide revisar de nuevo. Un JSON con menos equipos de los que anuncia la web se rechaza.
+
+Desde la terminal (mismo comportamiento): `python3 import_nasa.py` muestra los cambios con `nasa/teams_valencia.json`, `--yes` los aplica (con `DATABASE_URL` va contra Render).
+
 ## Backups
 
 - Local: al arrancar se copia `data/spaceapps.sqlite3` a `data/backups/` (se guardan las 10 últimas).

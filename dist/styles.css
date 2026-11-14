@@ -565,3 +565,35 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 14.5px; }
 .me-box .me-name{color:var(--primary-cyan,#00f0ff);font-weight:600;max-width:140px;overflow:hidden;text-overflow:ellipsis}
 .me-box[hidden]{display:none}
 #new-team-btn, .menu-wrap { flex-shrink: 0; }
+
+/* ---------- Refrescar desde NASA ---------- */
+.sync-modal { max-width: 820px; }
+.sync-steps { margin: 0 0 12px; padding-left: 20px; color: var(--text-2); line-height: 1.9; }
+.sync-steps a { color: var(--primary-cyan); }
+.bm-link { display: inline-block; padding: 3px 12px; border-radius: 999px; border: 1px dashed var(--primary-cyan); color: var(--primary-cyan); font-weight: 600; text-decoration: none; cursor: grab; }
+.sync-paste { font-family: ui-monospace, monospace; font-size: 12px; resize: vertical; }
+.sync-note { margin-top: 12px; padding: 10px 12px; border-radius: 10px; background: rgba(0,240,255,.06); border: 1px solid rgba(0,240,255,.18); color: var(--text-2); font-size: 13px; }
+.sync-busy { display: flex; align-items: center; justify-content: center; gap: 14px; padding: 46px 10px; font-family: var(--font-heading); letter-spacing: 1px; font-size: .85rem; color: var(--text-main); }
+.spinner { width: 26px; height: 26px; border-radius: 50%; border: 3px solid rgba(0,240,255,.2); border-top-color: var(--primary-cyan); animation: spin .8s linear infinite; flex-shrink: 0; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.sync-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 12px; }
+.sync-stat { padding: 10px 12px; border-radius: 12px; border: 1px solid var(--border-color); background: rgba(255,255,255,.03); }
+.sync-stat b { display: block; font-family: var(--font-heading); font-size: 1.5rem; }
+.sync-stat span { font-size: 12px; color: var(--text-2); text-transform: uppercase; letter-spacing: 1px; }
+.sync-stat.cyan b { color: #7af7ff; } .sync-stat.purple b { color: #d3a8ff; } .sync-stat.red b { color: #ff8fa6; } .sync-stat.dim b { color: var(--text-2); }
+.sync-stat.red { border-color: rgba(255,77,109,.5); background: rgba(255,77,109,.08); }
+.sync-warn { margin-bottom: 10px; padding: 8px 12px; border-radius: 10px; background: rgba(255,107,0,.1); border: 1px solid rgba(255,107,0,.35); color: #ffb37a; font-size: 13px; }
+.sync-danger { margin-bottom: 12px; padding: 10px 12px; border-radius: 10px; background: rgba(255,77,109,.1); border: 1px solid rgba(255,77,109,.5); color: #ffc2cf; font-size: 14px; }
+.sync-del-names { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.sync-list { margin-bottom: 10px; border: 1px solid var(--border-color); border-radius: 10px; padding: 8px 12px; max-height: 300px; overflow: auto; }
+.sync-list summary { cursor: pointer; font-weight: 600; }
+.sync-list ul { margin: 8px 0 2px; padding-left: 18px; }
+.sync-list li { margin-bottom: 6px; }
+.sync-list a { color: var(--text-main); font-weight: 600; }
+.sync-chg { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
+.sync-ok { padding: 18px; text-align: center; color: #6ee7b7; }
+.sync-confirm { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-2); max-width: 380px; cursor: pointer; }
+.sync-confirm input { width: 18px; height: 18px; accent-color: var(--accent-orange); flex-shrink: 0; }
+.btn-space-accent:disabled, .btn-space-primary:disabled { opacity: .45; cursor: not-allowed; transform: none; box-shadow: none; }
+.icon-btn:disabled { opacity: .3; cursor: not-allowed; }
+.sync-chg .chip { white-space: normal; max-width: 100%; }

@@ -393,8 +393,9 @@
     const teams = [...(S.teams || [])];
     const head = h('div', { class: 'page-head' },
       h('div', { class: 'grow' }, h('div', { class: 'section-tag' }, `${teams.length} equipos`), h('h2', { class: 'section-title' }, 'Equipos')),
+      h('button', { class: 'btn-space-outline btn-sm', title: 'Traer equipos y miembros oficiales de spaceappschallenge.org', onclick: () => openNasaSync() }, '⟳ Refrescar desde NASA'),
       h('button', { class: 'btn-space-primary btn-sm', onclick: () => openNewTeam() }, '+ Equipo'));
-    if (!teams.length) return h('div', null, head, emptyState('Aún no hay equipos', 'Pulsa n para crear el primero.', true));
+    if (!teams.length) return h('div', null, head, emptyState('Aún no hay equipos', 'Tráelos de la web oficial con «Refrescar desde NASA» o pulsa n para crear uno.', true));
 
     const phaseIdx = Object.fromEntries(S.phases.map((p, i) => [p.key, i]));
     const cols = [
@@ -499,6 +500,7 @@
         starBtn(t, rerenderHeader),
         autoField('input', 'name', { class: 'th-name', 'aria-label': 'Nombre del equipo', maxlength: 120 }),
         h('label', { class: 'th-table', title: 'Mesa' }, autoField('input', 'table_label', { placeholder: 'Mesa', 'aria-label': 'Mesa' })),
+        t.nasa_slug ? h('a', { class: 'btn-ghost btn-sm', href: `https://www.spaceappschallenge.org/2026/find-a-team/${encodeURIComponent(t.nasa_slug)}/`, target: '_blank', rel: 'noopener noreferrer', title: 'Ficha oficial en spaceappschallenge.org' }, 'Ficha NASA ↗') : null,
         h('button', { class: 'btn-ghost danger btn-sm', type: 'button', onclick: deleteTeam }, 'Borrar')),
       h('div', { class: 'th-sub' }, pills),
       h('div', { class: 'th-sub' },
@@ -783,13 +785,14 @@
 
   // ---------- Modal: alta rápida ----------
   let modalClose = null;
+  let modalLocked = false;   // durante una operación en curso no se puede cerrar
   function openModal(node, onClose) {
     closeModal();
     const back = h('div', { class: 'modal-back', onmousedown: (e) => { if (e.target === back) closeModal(); } }, node);
     $('#modal-root').replaceChildren(back);
     modalClose = onClose || (() => {});
   }
-  function closeModal() { if (!modalClose) return; $('#modal-root').replaceChildren(); const f = modalClose; modalClose = null; f(); }
+  function closeModal() { if (!modalClose || modalLocked) return; $('#modal-root').replaceChildren(); const f = modalClose; modalClose = null; f(); }
   const modalOpen = () => !!modalClose;
 
   function openNewTeam(preset = {}) {
@@ -861,6 +864,212 @@
     name.focus();
   }
 
+  // ---------- Refrescar equipos desde la web NASA ----------
+  const NASA_TEAMS_URL = 'https://www.spaceappschallenge.org/2026/local-events/valencia/?tab=teams';
+
+  // Se ejecuta COMO MARCADOR en spaceappschallenge.org (no usa nada de este fichero).
+  // Lee las fichas públicas de cada equipo y muestra un JSON para copiar y pegar en el CRM.
+  function nasaBookmarklet() {
+    const TEAMS = 'https://www.spaceappschallenge.org/2026/local-events/valencia/?tab=teams';
+    const old = document.getElementById('sam-nasa'); if (old) old.remove();
+    const box = document.createElement('div'); box.id = 'sam-nasa';
+    box.style.cssText = 'position:fixed;top:16px;right:16px;z-index:2147483647;width:420px;max-width:92vw;padding:18px;border-radius:14px;background:#0b1430;color:#e2e8f0;font:14px/1.45 system-ui,sans-serif;box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 0 1px #00f0ff66';
+    const title = document.createElement('div'); title.style.cssText = 'font-weight:700;color:#00f0ff;margin-bottom:8px'; title.textContent = 'Space Apps Mentor · equipos NASA';
+    const msg = document.createElement('div');
+    const close = document.createElement('button'); close.textContent = '✕';
+    close.style.cssText = 'position:absolute;top:10px;right:12px;background:none;border:0;color:#94a3b8;font-size:16px;cursor:pointer';
+    close.onclick = () => box.remove();
+    box.append(close, title, msg); document.body.appendChild(box);
+    const say = (t) => { msg.textContent = t; };
+    if (!/spaceappschallenge\.org$/.test(location.hostname) || !/local-events\/valencia/.test(location.pathname)) {
+      say('Este marcador funciona en la página de equipos de Space Apps Valencia. Te llevo allí: cuando cargue, vuelve a pulsarlo.');
+      setTimeout(() => { location.href = TEAMS; }, 1800); return;
+    }
+    if (!/tab=teams/.test(location.search)) { say('Abriendo la pestaña Teams… vuelve a pulsar el marcador cuando cargue.'); setTimeout(() => { location.href = TEAMS; }, 1200); return; }
+    const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+    const hrefs = () => [...new Set([...document.querySelectorAll('a[href^="/2026/find-a-team/"]')].map((a) => a.getAttribute('href')).filter((x) => x !== '/2026/find-a-team/'))];
+    const read = (src) => new Promise((res) => {
+      const f = document.createElement('iframe'); f.style.cssText = 'position:fixed;left:-5000px;top:0;width:1200px;height:900px'; f.src = src; document.body.appendChild(f);
+      let n = 0;
+      const iv = setInterval(() => {
+        n++; let t = '';
+        try { t = f.contentDocument.body.innerText; } catch (e) { t = ''; }
+        if ((/TEAM MEMBERS/.test(t) && /Team Information/.test(t)) || n > 40) {
+          clearInterval(iv); setTimeout(() => { let tt = ''; try { tt = f.contentDocument.body.innerText; } catch (e) { tt = ''; } f.remove(); res(tt); }, 600);
+        }
+      }, 400);
+    });
+    const cut = (t, a, b) => { const i = t.indexOf(a); if (i < 0) return ''; const j = b ? t.indexOf(b, i + a.length) : -1; return t.slice(i + a.length, j < 0 ? undefined : j).trim(); };
+    (async () => {
+      // La lista se carga con scroll infinito: bajar hasta tener tantos como dice la página.
+      const total = () => { const m = document.body.innerText.match(/returning (\d+) teams?/i); return m ? +m[1] : null; };
+      for (let i = 0, stable = 0, prev = -1; i < 80 && stable < 6; i++) {
+        const n = hrefs().length, want = total();
+        say(`Cargando la lista completa… ${n}${want ? ' de ' + want : ''}`);
+        if (want && n >= want) break;
+        stable = n === prev ? stable + 1 : 0; prev = n;
+        window.scrollTo(0, document.body.scrollHeight);
+        const btn = [...document.querySelectorAll('button')].find((b) => b.innerText.trim() === 'Load More');
+        if (btn && btn.offsetHeight) btn.click();
+        await sleep(1200);
+      }
+      window.scrollTo(0, 0);
+      const expected = total();
+      const slugs = hrefs().map((x) => x.split('/').filter(Boolean).pop());
+      if (expected && slugs.length < expected) {
+        say(`Solo he podido cargar ${slugs.length} de ${expected} equipos. Recarga la página y vuelve a pulsar el marcador (no sincronices con datos incompletos).`);
+        return;
+      }
+      const teams = [], failed = [];
+      for (const slug of slugs) {
+        say(`Leyendo equipo ${teams.length + failed.length + 1} de ${slugs.length}…`);
+        const mem = await read(`/2026/find-a-team/${slug}/?tab=members`);
+        if (!/TEAM MEMBERS/.test(mem)) { failed.push(slug); continue; }
+        const info = mem.slice(mem.indexOf('Team Information'));
+        const block = cut(mem, 'TEAM MEMBERS\n', 'Team Information').replace(/\n(Request to Join Team|This team is not looking for new members\.)[\s\S]*$/, '');
+        const lines = block.split('\n').map((x) => x.trim()).filter(Boolean);
+        const members = [];
+        for (let i = 0, owner = false; i < lines.length; i++) {
+          if (lines[i] === 'Team Owner') { owner = true; continue; }
+          members.push({ name: lines[i], owner }); owner = false; i++;
+        }
+        teams.push({ slug, name: cut(mem, 'Find a Team\n', '\n'), challenge_en: cut(info, 'Challenge\n', '\n'), members });
+      }
+      if (failed.length) {
+        say(`No se pudieron leer ${failed.length} equipos (${failed.join(', ')}). Vuelve a pulsar el marcador en un momento: sincronizar sin ellos los borraría del CRM.`);
+        return;
+      }
+      const json = JSON.stringify({ source: TEAMS, scraped_at: new Date().toISOString(), expected_total: expected || teams.length, teams });
+      say(`Listo: ${teams.length} equipos (todos los de la web). Copia y pégalo en el CRM.`);
+      const ta = document.createElement('textarea'); ta.value = json; ta.readOnly = true;
+      ta.style.cssText = 'width:100%;height:90px;margin:10px 0;background:#020617;color:#7af7ff;border:1px solid #334155;border-radius:8px;font:11px monospace';
+      const copy = document.createElement('button'); copy.textContent = 'Copiar JSON';
+      copy.style.cssText = 'width:100%;padding:10px;border:0;border-radius:999px;background:linear-gradient(135deg,#00c6ff,#0072ff);color:#fff;font-weight:700;cursor:pointer';
+      copy.onclick = async () => {
+        try { await navigator.clipboard.writeText(json); } catch (e) { ta.select(); document.execCommand('copy'); }
+        copy.textContent = 'Copiado ✓ · vuelve al CRM y pégalo';
+      };
+      box.append(ta, copy);
+    })();
+  }
+  const bookmarkletHref = () => 'javascript:' + encodeURIComponent('(' + nasaBookmarklet.toString() + ')()');
+
+  function openNasaSync() {
+    if (!S) return;
+    const prevFocus = document.activeElement;
+    let payload = null;   // datos NASA ya parseados
+    let plan = null;
+    const body = h('div', { class: 'sync-body' });
+    const foot = h('div', { class: 'modal-foot' });
+    const step = h('div', { class: 'section-tag', style: 'margin-bottom:6px' }, 'Paso 1 de 2');
+    const xBtn = h('button', { class: 'icon-btn x', type: 'button', title: 'Cerrar (Esc)', 'aria-label': 'Cerrar', onclick: closeModal }, '✕');
+    const modal = h('div', { class: 'glass-card modal sync-modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'ns-title' },
+      h('div', { class: 'modal-head' },
+        h('div', null, step, h('h2', { class: 'section-title', id: 'ns-title', style: 'font-size:1.25rem' }, 'Refrescar equipos desde NASA')),
+        xBtn),
+      body, foot);
+
+    const busy = (text) => {
+      modalLocked = true; xBtn.disabled = true;
+      body.replaceChildren(h('div', { class: 'sync-busy', role: 'status', 'aria-live': 'polite' }, h('span', { class: 'spinner' }), h('span', null, text)));
+      foot.replaceChildren();
+    };
+    const unlock = () => { modalLocked = false; xBtn.disabled = false; };
+
+    // --- Paso 1: conseguir los datos
+    function drawSource(prefill = '') {
+      unlock(); step.textContent = 'Paso 1 de 2 · Datos oficiales';
+      const ta = h('textarea', { class: 'fc sync-paste', rows: 5, placeholder: 'Pega aquí el JSON que copia el marcador ({"teams": [...]})', 'aria-label': 'JSON de equipos NASA' });
+      ta.value = prefill;
+      const file = h('input', { type: 'file', accept: 'application/json,.json', hidden: true });
+      file.addEventListener('change', async () => { const f = file.files && file.files[0]; if (f) { ta.value = await f.text(); toast(`«${f.name}» cargado`); } });
+      const bm = h('a', { class: 'bm-link', href: bookmarkletHref(), title: 'Arrástrame a la barra de marcadores', onclick: (e) => { e.preventDefault(); toast('Arrástralo a la barra de marcadores; se usa en la web de NASA', true); } }, '📡 Equipos NASA → CRM');
+      body.replaceChildren(
+        h('ol', { class: 'sync-steps' },
+          h('li', null, 'Solo la primera vez: arrastra este botón a tu barra de marcadores ', bm, h('span', { class: 'dim' }, ' (Cmd+Shift+B si no la ves).')),
+          h('li', null, 'Abre la ', h('a', { href: NASA_TEAMS_URL, target: '_blank', rel: 'noopener noreferrer' }, 'página de equipos de Valencia ↗'), ' y pulsa el marcador. Tarda unos 2 s por equipo.'),
+          h('li', null, 'Pulsa «Copiar JSON», vuelve aquí y pégalo:')),
+        ta,
+        h('button', { class: 'link-btn', type: 'button', style: 'color:var(--primary-cyan)', onclick: () => { file.value = ''; file.click(); } }, '…o sube un fichero teams_valencia.json'), file,
+        h('div', { class: 'sync-note' }, 'La web NASA manda: se sobrescriben nombre, reto y miembros, se crean los equipos nuevos y se borran los que no estén allí. Se conserva el trabajo de los mentores: fase, ★, mesa, idea/problema/solución/enlaces, visitas y rol/skills de quien siga en el equipo.'));
+      const next = h('button', { class: 'btn-space-primary', type: 'button', onclick: () => review(ta.value) }, 'Revisar cambios →');
+      foot.replaceChildren(h('span', { class: 'sp' }), h('button', { class: 'btn-ghost', type: 'button', onclick: closeModal }, 'Cancelar'), next);
+      ta.addEventListener('keydown', (e) => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); review(ta.value); } });
+      setTimeout(() => ta.focus(), 30);
+    }
+
+    async function review(text) {
+      const raw = (text || '').trim();
+      if (!raw) { toast('Pega primero el JSON de equipos', true); return; }
+      try { payload = JSON.parse(raw); } catch (e) { toast('Eso no es un JSON válido. Usa «Copiar JSON» del marcador.', true); return; }
+      busy('Comparando con los equipos del CRM…');
+      try { plan = await api('POST', '/api/nasa-sync/preview', payload); drawReview(); }
+      catch (e) { toast(e.message, true); drawSource(raw); }
+    }
+
+    // --- Paso 2: revisar y confirmar
+    function drawReview() {
+      unlock(); step.textContent = 'Paso 2 de 2 · Revisa y confirma';
+      const p = plan;
+      const nothing = !p.created.length && !p.updated.length && !p.deleted.length;
+      const stat = (n, label, cls) => h('div', { class: 'sync-stat ' + cls }, h('b', null, n), h('span', null, label));
+      const list = (title, items, cls) => (items.length ? h('details', { class: 'sync-list ' + cls, open: items.length <= 8 ? '' : null },
+        h('summary', null, `${title} (${items.length})`), h('ul', null, items)) : null);
+      const nasaLink = (u, txt) => h('a', { href: u, target: '_blank', rel: 'noopener noreferrer' }, txt);
+      body.replaceChildren();
+      append(body, [
+        h('div', { class: 'sync-stats' },
+          stat(p.created.length, 'nuevos', 'cyan'), stat(p.updated.length, 'cambian', 'purple'),
+          stat(p.deleted.length, 'se borran', p.deleted.length ? 'red' : 'dim'), stat(p.unchanged + (p.linked || 0), 'sin cambios', 'dim')),
+        h('div', { class: 'dim', style: 'margin:-4px 0 12px;font-size:13px' }, `La web NASA tiene ${p.totals.teams} equipos y ${p.totals.members} personas.`),
+        p.warnings.length ? h('div', { class: 'sync-warn' }, p.warnings.map((w) => h('div', null, '⚠ ' + w))) : null,
+        p.deleted.length ? h('div', { class: 'sync-danger' },
+          h('b', null, p.deleted.length === 1 ? 'Se borrará 1 equipo del CRM para todos los mentores' : `Se borrarán ${p.deleted.length} equipos del CRM para todos los mentores`), ' (no están en la web NASA), con sus miembros, fase y visitas:',
+          h('div', { class: 'sync-del-names' }, p.deleted.map((d) => h('span', { class: 'chip red' }, `${d.name} · ${d.member_count} miembros`)))) : null,
+        list('Equipos nuevos', p.created.map((c) => h('li', null, nasaLink(c.url, c.name), h('span', { class: 'dim' }, ` · ${c.challenge || 'sin reto'} · ${c.members.length} miembros`))), 'cyan'),
+        list('Equipos que cambian', p.updated.map((u) => h('li', null, nasaLink(u.url, u.name),
+          h('div', { class: 'sync-chg' },
+            u.changes.map((c) => h('span', { class: 'chip purple' }, c)),
+            u.members_added.map((n) => h('span', { class: 'chip green' }, '+ ' + n)),
+            u.members_removed.map((n) => h('span', { class: 'chip red' }, '− ' + n)),
+            u.members_renamed.map((n) => h('span', { class: 'chip' }, '✎ ' + n))))), 'purple'),
+        nothing ? h('div', { class: 'sync-ok' }, '✓ El CRM ya coincide con la web NASA. No hay nada que cambiar.') : null]);
+
+      const confirmChk = h('input', { type: 'checkbox', id: 'ns-ok' });
+      const apply = h('button', { class: 'btn-space-accent', type: 'button', disabled: true, onclick: () => doApply() },
+        p.deleted.length ? `Sobrescribir y borrar ${p.deleted.length}` : 'Sobrescribir equipos');
+      confirmChk.addEventListener('change', () => { apply.disabled = !confirmChk.checked; });
+      const back = h('button', { class: 'btn-ghost', type: 'button', onclick: () => drawSource(JSON.stringify(payload)) }, '← Atrás');
+      if (nothing) {
+        foot.replaceChildren(back, h('span', { class: 'sp' }), h('button', { class: 'btn-space-primary', type: 'button', onclick: closeModal }, 'Cerrar'));
+        return;
+      }
+      foot.replaceChildren(back,
+        h('label', { class: 'sync-confirm', for: 'ns-ok' }, confirmChk,
+          h('span', null, 'Entiendo que los datos de NASA sobrescriben los del CRM para todos los mentores')),
+        h('span', { class: 'sp' }), apply);
+    }
+
+    async function doApply() {
+      busy('Sobrescribiendo equipos con los datos de NASA…');
+      try {
+        const r = await api('POST', '/api/nasa-sync/apply', Object.assign({}, payload, { plan_hash: plan.plan_hash }));
+        unlock(); modalClose = null; $('#modal-root').replaceChildren();
+        toast(`Equipos sincronizados con NASA: ${r.created} nuevos, ${r.updated} actualizados, ${r.deleted} borrados`);
+        const gone = currentTeam && plan.deleted.some((d) => d.id === currentTeam.id);
+        await loadState();
+        if (gone) { currentTeam = null; go('#/equipos'); } else render({ keepScroll: true });
+      } catch (e) {
+        unlock();
+        if (/cambiado/.test(e.message)) { toast(e.message, true); review(JSON.stringify(payload)); }
+        else { toast(e.message, true); drawReview(); }
+      }
+    }
+
+    openModal(modal, () => { if (prevFocus && prevFocus.focus) prevFocus.focus(); });
+    drawSource();
+  }
+
   // ---------- Búsqueda global ----------
   function searchLocalNotes(q) {
     const lq = q.toLowerCase(), out = [];
@@ -924,6 +1133,7 @@
     document.addEventListener('click', (e) => { if (!menu.hidden && !menu.contains(e.target)) setOpen(false); });
     $('#export-link').addEventListener('click', () => { setOpen(false); toast('Exportando equipos…'); });
     $('#import-btn').addEventListener('click', () => { setOpen(false); file.value = ''; file.click(); });
+    $('#nasa-sync-btn').addEventListener('click', () => { setOpen(false); openNasaSync(); });
     $('#wipe-btn').addEventListener('click', async () => {
       setOpen(false);
       const n = (S && S.teams || []).length;
